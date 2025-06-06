@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>域名出售 - Setsail.net</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="language-switch">
+        <button class="lang-btn active" data-lang="zh">中文</button>
+        <button class="lang-btn" data-lang="en">English</button>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1 data-i18n="title">域名出售</h1>
+                <div class="domain-badge">
+                    <span class="domain-status" data-i18n="status">可售</span>
+                </div>
+            </div>
+        </header>
+        
+        <main>
+            <div class="domain-card">
+                <div class="domain-header">
+                    <h2 class="domain-name">Setsail.net</h2>
+                    <div class="domain-features">
+                        <span class="feature-tag" data-i18n="premium">国际域名</span>
+                        <span class="feature-tag" data-i18n="short">单词组合</span>
+                        <span class="feature-tag" data-i18n="brandable">适合品牌</span>
+                    </div>
+                </div>
+                <div class="domain-description">
+                    <p data-i18n="description">这是一个优质域名，适合您的下一个项目。</p>
+                    <p class="domain-slogan" data-i18n="slogan">Setsail.net，扬帆起航，成就非凡！</p>
+                </div>
+                
+                <div class="contact-section">
+                    <h3 data-i18n="contact">联系方式</h3>
+                    <p data-i18n="contactDesc">如果您对该域名感兴趣，请点击下方按钮联系我们：</p>
+                    <button class="contact-btn" onclick="showEmailModal()">
+                        <i class="fas fa-envelope"></i>
+                        <span data-i18n="contactUs">联系我们</span>
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p data-i18n="copyright">&copy; 2025 域名出售. 保留所有权利。</p>
+        </footer>
+    </div>
+
+    <!-- 邮箱弹窗 -->
+    <div id="emailModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeEmailModal()">&times;</span>
+            <h3 data-i18n="emailTitle">联系邮箱</h3>
+            <div class="email-container">
+                <p id="emailAddress">lxg4988@outlook.com</p>
+                <button class="copy-email-btn" onclick="copyEmail()">
+                    <i class="fas fa-copy"></i>
+                    <span data-i18n="copyEmail">复制邮箱</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 提示框 -->
+    <div id="toast" class="toast">
+        <span id="toastMessage"></span>
+    </div>
+
+    <script>
+        // 语言切换
+        const translations = {
+            zh: {
+                title: "域名出售",
+                status: "可售",
+                premium: "国际域名",
+                short: "单词组合",
+                brandable: "适合品牌",
+                description: "这是一个优质域名，适合您的下一个项目。",
+                slogan: "Setsail.net，扬帆起航，成就非凡！",
+                contact: "联系方式",
+                contactDesc: "如果您对该域名感兴趣，请点击下方按钮联系我们：",
+                contactUs: "联系我们",
+                copyright: "© 2025 域名出售. 保留所有权利。",
+                emailTitle: "联系邮箱",
+                copyEmail: "复制邮箱",
+                copied: "已复制到剪贴板"
+            },
+            en: {
+                title: "Domain For Sale",
+                status: "Available",
+                premium: "International Domain",
+                short: "Word Combination",
+                brandable: "Brandable",
+                description: "This premium domain is perfect for your next project.",
+                slogan: "Setsail.net, Set Sail and Achieve Extraordinary!",
+                contact: "Contact",
+                contactDesc: "If you're interested in this domain, please contact us:",
+                contactUs: "Contact Us",
+                copyright: "© 2025 Domain For Sale. All rights reserved.",
+                emailTitle: "Contact Email",
+                copyEmail: "Copy Email",
+                copied: "Copied to clipboard"
+            }
+        };
+
+        function switchLanguage(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+            });
+            document.documentElement.lang = lang;
+        }
+
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                switchLanguage(btn.getAttribute('data-lang'));
+            });
+        });
+
+        // 弹窗功能
+        function showEmailModal() {
+            document.getElementById('emailModal').style.display = 'flex';
+        }
+
+        function closeEmailModal() {
+            document.getElementById('emailModal').style.display = 'none';
+        }
+
+        // 复制功能
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast(translations[document.documentElement.lang].copied);
+            });
+        }
+
+        function copyEmail() {
+            copyToClipboard('lxg4988@outlook.com');
+        }
+
+        // 提示框功能
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
+        }
+
+        // 点击弹窗外部关闭
+        window.onclick = function(event) {
+            const modal = document.getElementById('emailModal');
+            if (event.target === modal) {
+                closeEmailModal();
+            }
+        }
+    </script>
+</body>
+</html> 
